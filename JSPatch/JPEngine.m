@@ -199,7 +199,7 @@ static NSMutableDictionary *_protocolTypeEncodeDict;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMemoryWarning) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
 #endif
     
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"JSPatch" ofType:@"js"];
+    NSString *path = [self JSPatchJSPath];
     NSAssert(path, @"can't find JSPatch.js");
     NSString *jsCore = [[NSString alloc] initWithData:[[NSFileManager defaultManager] contentsAtPath:path] encoding:NSUTF8StringEncoding];
     
@@ -208,6 +208,10 @@ static NSMutableDictionary *_protocolTypeEncodeDict;
     } else {
         [_context evaluateScript:jsCore];
     }
+}
+
++(NSString *)JSPatchJSPath {
+    return [[NSBundle bundleForClass:[self class]] pathForResource:@"JSPatch" ofType:@"js"];
 }
 
 + (JSValue *)evaluateScript:(NSString *)script
