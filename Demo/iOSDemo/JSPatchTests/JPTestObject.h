@@ -107,6 +107,8 @@
 @property (nonatomic, assign) BOOL consoleLogPassed;
 @property (nonatomic, assign) BOOL overrideParentMethodPassed;
 
+@property (nonatomic, assign) BOOL variableParameterMethodPassed;
+
 - (NSString*)funcOverrideParentMethod;
 - (void)funcToSwizzleTestGCD:(void(^)())block;
 
@@ -114,13 +116,6 @@
 - (NSDictionary *)funcToSwizzleReturnJSDictionary;
 - (NSArray *)funcToSwizzleReturnArray:(NSArray *)arr;
 - (NSString *)funcToSwizzleReturnString:(NSString *)str;
-
-- (void)jsCallEmptyMethod;
-- (void)jsCallMethodWithParamObject;
-- (void)jsCallMethodReturnObject;
-- (void)emptyMethodToOverride;
-- (void)methodWithParamObjectToOverride:(NSObject *)obj;
-- (NSObject *)methodReturnObjectToOverride;
 @end
 
 
