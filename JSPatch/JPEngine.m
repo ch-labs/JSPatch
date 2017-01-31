@@ -309,7 +309,7 @@ static void (^_exceptionBlock)(NSString *log) = ^void(NSString *log) {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMemoryWarning) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
 #endif
     
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"JSPatch" ofType:@"js"];
+    NSString *path = [self JSPatchJSPath];
     if (!path) _exceptionBlock(@"can't find JSPatch.js");
     NSString *jsCore = [[NSString alloc] initWithData:[[NSFileManager defaultManager] contentsAtPath:path] encoding:NSUTF8StringEncoding];
     
@@ -318,6 +318,10 @@ static void (^_exceptionBlock)(NSString *log) = ^void(NSString *log) {
     } else {
         [_context evaluateScript:jsCore];
     }
+}
+
++(NSString *)JSPatchJSPath {
+    return [[NSBundle bundleForClass:[self class]] pathForResource:@"JSPatch" ofType:@"js"];
 }
 
 + (JSValue *)evaluateScript:(NSString *)script
